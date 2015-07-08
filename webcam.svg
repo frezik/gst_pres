@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created by diasvg.py -->
+<svg width="18.240cm" height="2.000cm" viewBox="4.950 3.950 23.190 5.950"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="5.000" y="4.000" width="3.405" height="1.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="5.000" y="4.000" width="3.405" height="1.900" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="6.703" y="5.145"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+v4l2src</text>
+<rect x="12.000" y="4.000" width="2.585" height="1.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="12.000" y="4.000" width="2.585" height="1.900" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="13.293" y="5.145"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+caps</text>
+<rect x="18.000" y="4.000" width="5.140" height="1.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="18.000" y="4.000" width="5.140" height="1.900" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="20.570" y="5.145"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+xvimagesink</text>
+<line x1="8.405" y1="4.950" x2="11.776" y2="4.950" stroke="#000000" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="11.388,5.200 11.888,4.950 11.388,4.700 "/>
+<line x1="14.585" y1="4.950" x2="17.776" y2="4.950" stroke="#000000" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="17.388,5.200 17.888,4.950 17.388,4.700 "/>
+</svg>

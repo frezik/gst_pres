@@ -12,8 +12,7 @@ sub bus_callback
     my ($bus, $msg, $loop) = @_;
 
     if( $msg->type & "error" ) {
-        my $s = $msg->get_structure;
-        warn $s->get_value('gerror')->message . "\n";
+        warn $msg->error;
         $loop->quit;
     }
     elsif( $msg->type & "eos" ) {
@@ -27,6 +26,11 @@ sub bus_callback
     return TRUE;
 }
 
+sub fakesink_callback
+{
+    say "Got fakesink callback";
+}
+
 
 {
     my $loop = Glib::MainLoop->new( undef, FALSE );
@@ -36,13 +40,12 @@ sub bus_callback
     my $v4l2src = GStreamer1::ElementFactory::make( v4l2src => 'and_who');
     my $capsfilter = GStreamer1::ElementFactory::make(
         capsfilter => 'are_you' );
-    my $xvimagesink = GStreamer1::ElementFactory::make(
-        xvimagesink => 'the_proud_lord_said' );
+    my $fakesink = GStreamer1::ElementFactory::make(
+        fakesink => 'the_proud_lord_said' );
 
     my $caps = GStreamer1::Caps::Simple->new( 'video/x-raw',
         width     => 'Glib::Int'    => 640,
         height    => 'Glib::Int'    => 480,
-        #framerate => 'Glib::Double' => (30/1),
     );
     $capsfilter->set( caps => $caps );
 
@@ -50,17 +53,24 @@ sub bus_callback
         device => INPUT,
     );
 
+    $fakesink->set(
+        'signal-handoffs' => TRUE,
+    );
+    $fakesink->signal_connect(
+        'handoff' => \&fakesink_callback,
+    );
+
     $pipeline->add( $_ ) for
         $v4l2src,
         $capsfilter,
-        $xvimagesink;
+        $fakesink;
 
     $v4l2src->link( $capsfilter );
-    $capsfilter->link( $xvimagesink );
+    $capsfilter->link( $fakesink );
 
     my $bus = $pipeline->get_bus;
     $bus->add_signal_watch;
-    $bus->signal_connect( 'message::error', \&bus_callback, $loop );
+    $bus->add_watch( \&bus_callback, $loop );
 
     $pipeline->set_state( 'playing' );
     $loop->run;
