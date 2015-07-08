@@ -7,24 +7,13 @@ use Glib qw( TRUE FALSE );
 use constant INPUT => '/dev/video0';
 
 
-sub bus_callback
+sub bus_error_callback
 {
     my ($bus, $msg, $loop) = @_;
-
-    if( $msg->type & "error" ) {
-        my $s = $msg->get_structure;
-        warn $s->get_value('gerror')->message . "\n";
-        $loop->quit;
-    }
-    elsif( $msg->type & "eos" ) {
-        warn "End of stream, quitting\n";
-        $loop->quit;
-    }
-    else {
-        warn "Unknown message: " . $msg->type;
-    }
-
-    return TRUE;
+    my $s = $msg->get_structure;
+    warn $s->get_value('gerror')->message . "\n";
+    $loop->quit;
+    return FALSE;
 }
 
 
@@ -60,7 +49,7 @@ sub bus_callback
 
     my $bus = $pipeline->get_bus;
     $bus->add_signal_watch;
-    $bus->signal_connect( 'message::error', \&bus_callback, $loop );
+    $bus->signal_connect( 'message::error', \&bus_error_callback, $loop );
 
     $pipeline->set_state( 'playing' );
     $loop->run;
