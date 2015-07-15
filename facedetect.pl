@@ -49,7 +49,6 @@ sub bus_message_callback
     my $caps = GStreamer1::Caps::Simple->new( 'video/x-raw',
         width     => 'Glib::Int'    => 320,
         height    => 'Glib::Int'    => 240,
-        #framerate => 'Glib::Double' => (30/1),
     );
     $capsfilter->set( caps => $caps );
 
